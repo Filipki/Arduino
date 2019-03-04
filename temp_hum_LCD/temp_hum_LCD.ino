@@ -29,6 +29,7 @@ void setup()
   lcd.begin (16, 2);
   lcd.setBacklightPin(BACKLIGHT_PIN, POSITIVE);
   lcd.setBacklight(HIGH);
+  delay(10000);
 }
 
 void temp() {
