@@ -68,6 +68,11 @@ void loop()
     temp();
     hum();
     last = millis();
+    if (line1.length() > 35) {
+      line1 = line1.substring(0, 6);
+      line2 = line2.substring(0, 6);
+      lcd.clear();
+    }
     lcd.home();
     lcd.print(line1);
     lcd.setCursor(0, 1);
