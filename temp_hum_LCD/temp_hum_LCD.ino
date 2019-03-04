@@ -19,6 +19,7 @@ long waitFor = 1800000; //30' 1800000
 long last = millis() - waitFor;
 String line1 = "";
 String line2 = "";
+int offest = 17;
 
 DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C  lcd(I2C_ADDR, En_pin, Rw_pin, Rs_pin, D4_pin, D5_pin, D6_pin, D7_pin);
@@ -42,6 +43,25 @@ void hum() {
   line2 = line2 + String(h, 1) + "% ";
 }
 
+void scroll() {
+  for (int positionCounter = 0; positionCounter < line1.length() - offest; positionCounter++) {
+    lcd.scrollDisplayLeft();
+    delay(500);
+  }
+  delay(3000);
+
+  for (int positionCounter = 0; positionCounter < line1.length() - offest; positionCounter++) {
+    lcd.scrollDisplayRight();
+    delay(500);
+  }
+  delay(3000);
+
+  for (int positionCounter = 0; positionCounter < line1.length() - offest; positionCounter++) {
+    lcd.scrollDisplayLeft();
+    delay(250);
+  }
+}
+
 void loop()
 {
   if (millis() - last > waitFor) {
@@ -52,5 +72,9 @@ void loop()
     lcd.print(line1);
     lcd.setCursor(0, 1);
     lcd.print(line2);
+    if (line1.length() > 16)
+    {
+      scroll();
+    }
   }
 }
